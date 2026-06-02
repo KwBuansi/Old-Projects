@@ -12,7 +12,6 @@ Projects with their own dedicated repositories are **not** duplicated here — s
 | [systems/schelling](systems/schelling) | CSC 250 | Schelling Segregation Model |
 | [systems/jpeg-card-recovery](systems/jpeg-card-recovery) | CSC 250 | JPEG Card Recovery |
 | [systems/cpu-assembler](systems/cpu-assembler) | CSC 250 | Custom CPU & Assembler |
-| [systems/x86-assembly](systems/x86-assembly) | CSC 250 | x86 Assembly Programs |
 | [java/evil-hangman](java/evil-hangman) | CSC 221 | Evil Hangman |
 | [java/guitar-hero](java/guitar-hero) | CSC 221 | Guitar Hero (Karplus-Strong) |
 | [java/word-ladder](java/word-ladder) | CSC 221 | Word Ladder |
