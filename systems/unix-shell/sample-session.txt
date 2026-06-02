@@ -1,0 +1,134 @@
+
+Here is some example output from a run of my shell implementation. Note the jobs
+run in the background, the history command, and the !num commands. I've added
+comments/annotations after the # symbol.
+
+
+
+
+$ ./shell
+
+catshell> ls
+parser.c	parser.h	script		shell		shell.c
+
+catshell> ls -l -a
+total 96
+drwxr-xr-x@ 8 raghu  staff    272 Apr 28 00:11 .
+drwxr-xr-x@ 5 raghu  staff    170 Apr 27 17:19 ..
+-rw-r--r--@ 1 raghu  staff   6148 Apr 24 22:00 .DS_Store
+-rw-r--r--@ 1 raghu  staff   4667 Apr 24 22:12 parser.c
+-rw-r--r--@ 1 raghu  staff    214 Apr 24 21:50 parser.h
+-rw-r--r--@ 1 raghu  staff    101 Apr 16 23:32 script
+-rwxr-xr-x@ 1 raghu  staff  14168 Apr 28 00:11 shell
+-rw-r--r--@ 1 raghu  staff   4109 Apr 28 00:11 shell.c
+
+catshell> whoami
+raghu
+
+catshell> sleep 10 &
+
+catshell> sleep 10 &
+
+catshell> sleep 20 &
+
+catshell> ps w
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.00 ./shell
+55253 s000  S+     0:00.00 sleep 10	# background job
+55254 s000  S+     0:00.00 sleep 10	# background job
+55255 s000  S+     0:00.00 sleep 20	# background job
+
+catshell> sleep 30 &
+
+catshell> ps w
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.00 ./shell
+55255 s000  S+     0:00.00 sleep 20	# background job (other two exited)
+55257 s000  S+     0:00.00 sleep 30	# background job
+
+catshell> blah
+blah: command not found
+
+catshell> ps w
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.00 ./shell
+55257 s000  S+     0:00.00 sleep 30	# background job (sleep 20 exited)
+
+catshell> history
+    3 whoami
+    4 sleep 10 &
+    5 sleep 10 &
+    6 sleep 20 &
+    7 ps w
+    8 sleep 30 &
+    9 ps w
+    10 blah
+    11 ps w
+    12 history
+
+catshell> !5
+
+catshell> !11
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.01 ./shell
+55257 s000  S+     0:00.00 sleep 30
+55261 s000  S+     0:00.00 sleep 10
+
+catshell> !11
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.01 ./shell
+
+catshell> history
+	7 ps w
+	8 sleep 30 &
+	9 ps w
+	10 blah
+	11 ps w
+	12 history
+	13 sleep 10 &
+	14 ps w
+	15 ps w
+	16 history
+
+catshell>                   # blank lines do nothing and don't affect history
+
+catshell>
+
+catshell>
+
+catshell> !3
+!3: event not found
+
+catshell> !13
+
+catshell> !14
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.01 ./shell
+55264 s000  S+     0:00.00 sleep 10
+
+catshell> history
+	10 blah
+	11 ps w
+	12 history
+	13 sleep 10 &
+	14 ps w
+	15 ps w
+	16 history
+	17 sleep 10 &
+	18 ps w
+	19 history
+
+catshell> ps w
+  PID   TT  STAT      TIME COMMAND
+55087 s000  S      0:00.04 -bash
+55249 s000  S+     0:00.01 ./shell
+55264 s000  S+     0:00.00 sleep 10
+
+catshell> exit
+$                           # back in the bash shell again
